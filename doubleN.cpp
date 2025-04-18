@@ -38,3 +38,37 @@ bool isValidDouble(const string& str) {
     }
     return (i == str.size()) && (hasDigitsBefore || (hasDot && hasDigitsAfter));
 }
+
+void splitDouble(const string& num, string& sign, string& intPart, string& fracPart) {
+    sign = (num[0] == '-' || num[0] == '+') ? string(1, num[0]) : "+";
+    string body = (sign == "+" ? num : num.substr(1));
+
+    size_t dot = body.find('.');
+    intPart = (dot != string::npos) ? body.substr(0, dot) : body;
+    fracPart = (dot != string::npos) ? body.substr(dot + 1) : "";
+
+    trimZeros(intPart);
+    while (fracPart.size() > 0 && fracPart.back() == '0') fracPart.pop_back();
+}
+
+void normalize(string& aInt, string& aFrac, string& bInt, string& bFrac) {
+    int maxInt = max(aInt.size(), bInt.size());
+    int maxFrac = max(aFrac.size(), bFrac.size());
+
+    aInt.insert(0, maxInt - aInt.size(), '0');
+    bInt.insert(0, maxInt - bInt.size(), '0');
+
+    aFrac.append(maxFrac - aFrac.size(), '0');
+    bFrac.append(maxFrac - bFrac.size(), '0');
+}
+
+string addStrings(const string& a, const string& b, int& carry) {
+    string res;
+    for (int i = a.size() - 1; i >= 0; --i) {
+        int sum = (a[i] - '0') + (b[i] - '0') + carry;
+        carry = sum / 10;
+        res += (sum % 10 + '0');
+    }
+    reverse(res.begin(), res.end());
+    return res;
+}
