@@ -8,7 +8,7 @@ EECS 348 Lab 10
 determine whether a given string represents a valid double-precision number, and then develop functions to perform addition and multiplication on such numbers
 input: user inputted file
 Output: valid operations done with double prec num and or invalid num outputted
-Collaborators: 
+Collaborators: I used chatgpt to help me w my syntax errors and to help me get around not ints getting mishandled and crashing
 */
 
 #include <iostream>
